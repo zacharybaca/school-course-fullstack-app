@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
 
-// For next step in project: Test REST API in React Project
+// Finish Header component by adding fake links in anchor tags for placeholder
 function App() {
   return (
     <div className="App">
