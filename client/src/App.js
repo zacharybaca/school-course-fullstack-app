@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
+import Courses from "./components/Courses";
 
-// Finish Header component by adding fake links in anchor tags for placeholder
+// Next, Create UserSignIn Component
 function App() {
   return (
     <div className="App">
       <Header />
+      <Courses />
     </div>
   );
 }
