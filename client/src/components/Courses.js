@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import CourseContext from "../context/CourseContext";
 import { Link } from "react-router-dom";
 
 const Courses = () => {
-  const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/api/courses")
-      .then((response) => response.json())
-      .then((data) => setCourses(data));
-  }, []);
+  const { courses } = useContext(CourseContext);
   return (
     <div className="wrap main--grid">
       {courses.map((course) => {
