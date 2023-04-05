@@ -9,14 +9,16 @@ const Header = () => {
     <>
       <header>
         <div className="wrap header--flex">
-          <h1 className="header--logo">Courses</h1>
+          <h1 className="header--logo">
+            <Link to="/">Courses</Link>
+          </h1>
           <nav>
             {user ? (
               <>
                 <h1>Welcome back {user.username}!</h1>
               </>
             ) : (
-              <ul className="header-signedout">
+              <ul className="header--signedout">
                 <li>
                   <Link to="/signup">Sign Up</Link>
                 </li>
