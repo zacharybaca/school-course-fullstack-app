@@ -8,16 +8,16 @@ const Courses = () => {
     <div className="wrap main--grid">
       {courses.map((course) => {
         return (
-          <Link to="/api/courses/:id" className="course--module course--link">
+          <Link
+            to={`/courses/${course.id}`}
+            className="course--module course--link"
+          >
             <h2 className="course--label">Course</h2>
             <h3 className="course--title">{course.title}</h3>
           </Link>
         );
       })}
-      <Link
-        to="/api/createcourse"
-        className="course--module course--add--module"
-      >
+      <Link to="/courses/create" className="course--module course--add--module">
         <span className="course--add--title">
           <svg
             version="1.1"

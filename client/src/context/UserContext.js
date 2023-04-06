@@ -1,26 +1,32 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const UserContext = createContext(null);
 
 export const UserProvider = (props) => {
-  const [user, setUser] = useState(null);
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/users")
+      .then((response) => response.json())
+      .then((data) => setUsers(data));
+  }, []);
 
   const signInUser = (username, password) => {
     const newUser = {
       username,
       password,
     };
-    setUser(newUser);
+    setUsers(newUser);
   };
 
   const signOutUser = () => {
-    setUser(null);
+    setUsers(null);
   };
 
   return (
     <UserContext.Provider
       value={{
-        user,
+        users,
         actions: {
           signIn: signInUser,
           signOut: signOutUser,
