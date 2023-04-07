@@ -9,6 +9,7 @@ const Courses = () => {
       {courses.map((course) => {
         return (
           <Link
+            key={course.id}
             to={`/courses/${course.id}`}
             className="course--module course--link"
           >

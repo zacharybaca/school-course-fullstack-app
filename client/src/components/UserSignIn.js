@@ -55,7 +55,7 @@ const UserSignIn = () => {
       </form>
       <p>
         Don't have a user account? Click here to{" "}
-        <Link to="/api/signup">sign up</Link>!
+        <Link to="/signup">sign up</Link>!
       </p>
     </div>
   );

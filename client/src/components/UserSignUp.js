@@ -1,7 +1,3 @@
-import React from "react";
-
-const UserSignUp = () => {
-  return <div>UserSignUp</div>;
-};
+const UserSignUp = () => {};
 
 export default UserSignUp;

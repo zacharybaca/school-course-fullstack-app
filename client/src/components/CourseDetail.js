@@ -9,12 +9,6 @@ const CourseDetail = () => {
   // Parameter to Get Single Course by ID
   const { id } = useParams();
   const convertedId = parseInt(id);
-  console.log("Params Id: ", typeof convertedId);
-  console.log(typeof courses[0].id);
-
-  courses
-    .filter((course) => console.log("Match: ", course.id !== id))
-    .map((course) => console.log(course));
 
   return (
     <div className="actions--bar">
