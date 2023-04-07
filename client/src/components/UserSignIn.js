@@ -1,21 +1,20 @@
 import { useRef, useContext } from "react";
 import UserContext from "../context/UserContext";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserSignIn = () => {
   const { actions } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   // State
   const emailAddress = useRef(null);
   const password = useRef(null);
 
-  const navigate = useNavigate();
-
   // Event Handlers
   const handleSubmit = (event) => {
     event.preventDefault();
     actions.signIn(emailAddress.current.value, password.current.value);
-    navigate("/");
   };
 
   const handleCancel = (event) => {
