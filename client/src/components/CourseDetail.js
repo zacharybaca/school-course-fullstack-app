@@ -2,23 +2,35 @@ import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import CourseContext from "../context/CourseContext";
+import UserContext from "../context/UserContext";
 
+// Start on Task 9 on Instructions List of Project
 const CourseDetail = () => {
   const { courses } = useContext(CourseContext);
+  const { authenticatedUser } = useContext(UserContext);
 
   // Parameter to Get Single Course by ID
   const { id } = useParams();
   const convertedId = parseInt(id);
 
+  const userOwnedCourse = courses.filter(
+    (course) => course.userId === course.User.id
+  );
+
   return (
     <div className="actions--bar">
       <div className="wrap">
-        <Link to="/courses/:id/update" className="button">
-          Update Course
-        </Link>
-        <Link to="/courses/:id/update" className="button">
-          Delete Course
-        </Link>
+        {authenticatedUser && userOwnedCourse ? (
+          <>
+            <Link to="/courses/:id/update" className="button">
+              Update Course
+            </Link>
+            <Link to="/courses/:id/update" className="button">
+              Delete Course
+            </Link>
+          </>
+        ) : null}
+
         <Link to="/" className="button button-secondary">
           Return to List
         </Link>
