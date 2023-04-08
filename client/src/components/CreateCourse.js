@@ -12,7 +12,7 @@ const CreateCourse = () => {
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
-
+  console.log("Authenticated User: ", authenticatedUser.id);
   const handleChange = (event) => {
     event.preventDefault();
 
@@ -41,7 +41,6 @@ const CreateCourse = () => {
         description: description,
         estimatedTime: estimatedTime,
         materialsNeeded: materialsNeeded,
-        userId: authenticatedUser.id,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",

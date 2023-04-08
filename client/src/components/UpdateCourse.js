@@ -18,10 +18,14 @@ const UpdateCourse = () => {
     });
 
   //Set State for Each Input Field
-  let [title, setTitle] = useState("");
-  let [description, setDescription] = useState("");
-  let [estimatedTime, setEstimatedTime] = useState("");
-  let [materialsNeeded, setMaterialsNeeded] = useState("");
+  let [title, setTitle] = useState(selectedCourse[0].title);
+  let [description, setDescription] = useState(selectedCourse[0].description);
+  let [estimatedTime, setEstimatedTime] = useState(
+    selectedCourse[0].estimatedTime
+  );
+  let [materialsNeeded, setMaterialsNeeded] = useState(
+    selectedCourse[0].materialsNeeded
+  );
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = (e) => {
