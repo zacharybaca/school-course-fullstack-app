@@ -17,29 +17,27 @@ const UpdateCourse = () => {
       return newCourse;
     });
 
+  //Set State for Each Input Field
+  let [title, setTitle] = useState("");
+  let [description, setDescription] = useState("");
+  let [estimatedTime, setEstimatedTime] = useState("");
+  let [materialsNeeded, setMaterialsNeeded] = useState("");
   const [errors, setErrors] = useState([]);
-  const [updatedCourse, setUpdatedCourse] = useState({
-    title: selectedCourse.title,
-    description: selectedCourse.description,
-    estimatedTime: selectedCourse.estimatedTime,
-    materialsNeeded: selectedCourse.materialsNeeded,
-  });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    event.preventDefault();
-
-    setUpdatedCourse((updatedCourse) => ({
-      ...updatedCourse,
-      [name]: value,
-    }));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submit();
   };
 
-  const submit = async (event) => {
-    event.preventDefault();
-    await fetch("http://localhost:5000/api/courses/:id", {
+  const submit = async () => {
+    await fetch(`http://localhost:5000/api/courses/${convertedId}`, {
       method: "PUT",
-      body: JSON.stringify(updatedCourse),
+      body: JSON.stringify({
+        title: title,
+        description: description,
+        estimatedTime: estimatedTime,
+        materialsNeeded: materialsNeeded,
+      }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         Authorization:
@@ -49,16 +47,24 @@ const UpdateCourse = () => {
           ),
       },
     })
-      .then((errors) => {
-        if (errors.length) {
-          setErrors(errors);
+      .then((res) => {
+        if (res.status === 204) {
+          return [];
+        } else if (res.status === 400) {
+          return res.json().then((data) => {
+            return data.errors;
+          });
+        } else if (res.status === 404) {
+          throw new Error("404");
         } else {
-          navigate("/");
+          throw new Error("505");
         }
       })
-      .catch((error) => {
-        console.error(error);
-        navigate("/");
+      .then((errors) =>
+        errors.length ? setErrors(errors) : navigate(`/courses/${convertedId}`)
+      )
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -67,7 +73,7 @@ const UpdateCourse = () => {
   return (
     <div className="wrap">
       <h2>Update Course</h2>
-      {errors && errors.length ? (
+      {errors && errors.length > 0 ? (
         <div className="validation--errors">
           <h3>Validation Errors</h3>
           <ul>
@@ -77,7 +83,7 @@ const UpdateCourse = () => {
           </ul>
         </div>
       ) : null}
-      <form onSubmit={submit}>
+      <form onSubmit={handleSubmit}>
         <div className="main--flex">
           <>
             <div>
@@ -86,21 +92,21 @@ const UpdateCourse = () => {
                 id="courseTitle"
                 name="courseTitle"
                 type="text"
-                value={updatedCourse.title}
-                onChange={handleChange}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               ></input>
 
               <p>
-                By {updatedCourse.User?.firstName}{" "}
-                {updatedCourse.User?.lastName}
+                By {selectedCourse.User?.firstName}{" "}
+                {selectedCourse.User?.lastName}
               </p>
 
               <label htmlFor="courseDescription">Course Description</label>
               <textarea
                 id="courseDescription"
                 name="courseDescription"
-                value={updatedCourse.description}
-                onChange={handleChange}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               ></textarea>
             </div>
             <div>
@@ -109,16 +115,16 @@ const UpdateCourse = () => {
                 id="estimatedTime"
                 name="estimatedTime"
                 type="text"
-                value={updatedCourse.estimatedTime}
-                onChange={handleChange}
+                value={estimatedTime}
+                onChange={(e) => setEstimatedTime(e.target.value)}
               ></input>
 
               <label htmlFor="materialsNeeded">Materials Needed</label>
               <textarea
                 id="materialsNeeded"
                 name="materialsNeeded"
-                value={updatedCourse.materialsNeeded}
-                onChange={handleChange}
+                value={materialsNeeded}
+                onChange={(e) => setMaterialsNeeded(e.target.value)}
               ></textarea>
             </div>
           </>

@@ -22,10 +22,10 @@ const CourseDetail = () => {
       <div className="wrap">
         {authenticatedUser && userOwnedCourse ? (
           <>
-            <Link to="/courses/:id/update" className="button">
+            <Link to={`/courses/${convertedId}/update`} className="button">
               Update Course
             </Link>
-            <Link to="/courses/:id/update" className="button">
+            <Link to={`/courses/${convertedId}/update`} className="button">
               Delete Course
             </Link>
           </>
