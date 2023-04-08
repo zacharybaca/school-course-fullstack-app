@@ -9,7 +9,6 @@ import Courses from "./components/Courses";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
 
-// Next, Create UserSignIn Component
 function App() {
   return (
     <div className="App">

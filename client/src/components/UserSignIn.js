@@ -1,4 +1,4 @@
-import { useRef, useContext } from "react";
+import { useState, useContext } from "react";
 import UserContext from "../context/UserContext";
 import { Link } from "react-router-dom";
 
@@ -6,13 +6,25 @@ const UserSignIn = () => {
   const { actions } = useContext(UserContext);
 
   // State
-  const emailAddress = useRef(null);
-  const password = useRef(null);
+  const [credentials, setCredentials] = useState({
+    emailAddress: "",
+    password: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    event.preventDefault();
+
+    setCredentials((creds) => ({
+      ...creds,
+      [name]: value,
+    }));
+  };
 
   // Event Handlers
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    actions.signIn(emailAddress.current.value, password.current.value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    actions.signIn(credentials.emailAddress, credentials.password);
   };
 
   return (
@@ -24,19 +36,21 @@ const UserSignIn = () => {
         <input
           id="emailAddress"
           required
-          ref={emailAddress}
+          value={credentials.emailAddress}
           name="emailAddress"
           type="email"
           placeholder="Email Address"
+          onChange={handleChange}
         ></input>
         <label htmlFor="password">Password</label>
         <input
           id="password"
           required
-          ref={password}
+          value={credentials.password}
           name="password"
           type="password"
           placeholder="Password"
+          onChange={handleChange}
         ></input>
         <button className="button" type="submit">
           Sign In

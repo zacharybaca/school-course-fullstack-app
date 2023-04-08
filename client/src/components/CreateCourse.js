@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import UserContext from "../context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 
 const CreateCourse = () => {
+  const { authenticatedUser } = useContext(UserContext);
   // Set up State for Course
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -32,16 +34,22 @@ const CreateCourse = () => {
 
   const submit = async (event) => {
     event.preventDefault();
-    await fetch("http://localhost:5000/api/courses/create", {
+    await fetch("http://localhost:5000/api/courses", {
       method: "POST",
       body: JSON.stringify({
         title: title,
         description: description,
         estimatedTime: estimatedTime,
         materialsNeeded: materialsNeeded,
+        userId: authenticatedUser.id,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
+        Authorization:
+          "Basic " +
+          btoa(
+            `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
+          ),
       },
     })
       .then((errors) => {
@@ -73,7 +81,7 @@ const CreateCourse = () => {
       <form onSubmit={submit}>
         <div className="main--flex">
           <div>
-            <label forhtml="courseTitle">Course Title</label>
+            <label htmlFor="courseTitle">Course Title</label>
             <input
               id="courseTitle"
               name="courseTitle"
@@ -82,7 +90,7 @@ const CreateCourse = () => {
               onChange={handleChange}
             ></input>
 
-            <label forhtml="courseDescription">Course Description</label>
+            <label htmlFor="courseDescription">Course Description</label>
             <textarea
               id="courseDescription"
               name="courseDescription"
@@ -91,7 +99,7 @@ const CreateCourse = () => {
             ></textarea>
           </div>
           <div>
-            <label forhtml="estimatedTime">Estimated Time</label>
+            <label htmlFor="estimatedTime">Estimated Time</label>
             <input
               id="estimatedTime"
               name="estimatedTime"
@@ -100,7 +108,7 @@ const CreateCourse = () => {
               onChange={handleChange}
             ></input>
 
-            <label forhtml="materialsNeeded">Materials Needed</label>
+            <label htmlFor="materialsNeeded">Materials Needed</label>
             <textarea
               id="materialsNeeded"
               name="materialsNeeded"

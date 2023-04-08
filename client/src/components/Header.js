@@ -3,7 +3,7 @@ import { useContext } from "react";
 import UserContext from "../context/UserContext";
 
 const Header = () => {
-  const { user } = useContext(UserContext);
+  const { authenticatedUser } = useContext(UserContext);
 
   return (
     <>
@@ -13,9 +13,13 @@ const Header = () => {
             <Link to="/">Courses</Link>
           </h1>
           <nav>
-            {user ? (
+            {authenticatedUser ? (
               <>
-                <h1>Welcome back {user.username}!</h1>
+                <h1>
+                  Welcome back {authenticatedUser.firstName}{" "}
+                  {authenticatedUser.lastName}!
+                </h1>
+                <Link to="/signout">Sign Out</Link>
               </>
             ) : (
               <ul className="header--signedout">

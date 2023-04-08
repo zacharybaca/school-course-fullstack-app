@@ -9,7 +9,7 @@ export const CourseProvider = (props) => {
     fetch("http://localhost:5000/api/courses")
       .then((response) => response.json())
       .then((data) => setCourses(data));
-  }, [courses]);
+  }, []);
 
   return (
     <CourseContext.Provider

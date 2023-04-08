@@ -1,6 +1,5 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const UserContext = createContext(null);
 
@@ -8,19 +7,12 @@ export const UserProvider = (props) => {
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
 
   const navigate = useNavigate();
-
-  let cookie = Cookies.get("authenticatedUser");
-
-  useEffect(() => {
-    setAuthenticatedUser(cookie ? JSON.parse(cookie) : null);
-  }, [cookie]);
-
   const signInUser = async (emailAddress, password) => {
     await fetch("http://localhost:5000/api/users", {
       method: "GET",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        Authorization: "Basic" + btoa(`${emailAddress}:${password}`),
+        Authorization: "Basic " + btoa(`${emailAddress}:${password}`),
       },
     })
       .then((res) => {
@@ -36,25 +28,22 @@ export const UserProvider = (props) => {
         if (data.message) {
           console.log(data.message);
         } else {
+          //Set data for current user in global state
           setAuthenticatedUser(data);
           setAuthenticatedUser((prevState) => ({
             ...prevState,
             password: password,
           }));
-          Cookies.set("authenticatedUser", JSON.stringify(authenticatedUser), {
-            expires: 1,
-          });
           console.log(authenticatedUser);
         }
       })
       .catch((error) => {
-        console.log("Error: ", error);
+        console.log("Error:", error);
       });
   };
 
   const signOutUser = () => {
     setAuthenticatedUser(null);
-    Cookies.remove("authenticatedUser");
   };
 
   return (
