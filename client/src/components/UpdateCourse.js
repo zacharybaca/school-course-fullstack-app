@@ -37,7 +37,7 @@ const UpdateCourse = () => {
 
   const submit = async (event) => {
     event.preventDefault();
-    await fetch("http://localhost:5000/api/courses/:id/update", {
+    await fetch("http://localhost:5000/api/courses/:id", {
       method: "PUT",
       body: JSON.stringify(updatedCourse),
       headers: {
