@@ -13,7 +13,8 @@ const Header = () => {
             <Link to="/">Courses</Link>
           </h1>
           <nav>
-            {authenticatedUser ? (
+            {authenticatedUser !== null &&
+            authenticatedUser.hasOwnProperty("emailAddress") ? (
               <>
                 <h1>
                   Welcome back {authenticatedUser.firstName}{" "}

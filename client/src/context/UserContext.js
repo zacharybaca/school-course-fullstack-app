@@ -9,6 +9,7 @@ export const UserProvider = (props) => {
   const [authenticatedUser, setAuthenticatedUser] = useState(
     cookie ? JSON.parse(cookie) : null
   );
+
   Cookies.set("authenticatedUser", JSON.stringify(authenticatedUser), {
     expires: 1,
   });
