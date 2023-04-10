@@ -12,7 +12,7 @@ export const UserProvider = (props) => {
   Cookies.set("authenticatedUser", JSON.stringify(authenticatedUser), {
     expires: 1,
   });
-  console.log("Cookie: ", cookie);
+
   const navigate = useNavigate();
   const signInUser = async (emailAddress, password) => {
     await fetch("http://localhost:5000/api/users", {
@@ -33,7 +33,6 @@ export const UserProvider = (props) => {
         }
       })
       .then((data) => {
-        console.log("Data: ", data);
         setAuthenticatedUser(data);
         //Set data for current user in global state
         setAuthenticatedUser(() => ({
@@ -44,7 +43,6 @@ export const UserProvider = (props) => {
       .catch((error) => {
         console.log("Error:", error);
       });
-    console.log("Authenticated User: ", authenticatedUser);
   };
 
   const signOutUser = () => {

@@ -13,28 +13,13 @@ const CreateCourse = () => {
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
-  console.log("Authenticated User: ", authenticatedUser.id);
-  const handleChange = (event) => {
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    const name = event.target.name;
-    const value = event.target.value;
-
-    if (name === "courseTitle") {
-      setTitle(value);
-    } else if (name === "courseDescription") {
-      setDescription(value);
-    } else if (name === "estimatedTime") {
-      setEstimatedTime(value);
-    } else if (name === "materialsNeeded") {
-      setMaterialsNeeded(value);
-    } else {
-      return;
-    }
+    submit();
   };
 
-  const submit = async (event) => {
-    event.preventDefault();
+  const submit = async () => {
     await fetch("http://localhost:5000/api/courses", {
       method: "POST",
       body: JSON.stringify({
@@ -62,7 +47,7 @@ const CreateCourse = () => {
         } else if (res.status === 404) {
           throw new Error("404");
         } else {
-          throw new Error("505");
+          navigate("/");
         }
       })
       .then((errors) => (errors.length ? setErrors(errors) : navigate("/")))
@@ -70,7 +55,7 @@ const CreateCourse = () => {
         console.log(err);
       });
   };
-  console.log("Errors: ", errors);
+
   return (
     <div className="wrap">
       <h2>Create Course</h2>
@@ -84,7 +69,7 @@ const CreateCourse = () => {
           </ul>
         </div>
       ) : null}
-      <form onSubmit={submit}>
+      <form onSubmit={handleSubmit}>
         <div className="main--flex">
           <div>
             <label htmlFor="courseTitle">Course Title</label>
@@ -93,7 +78,7 @@ const CreateCourse = () => {
               name="courseTitle"
               type="text"
               value={title}
-              onChange={handleChange}
+              onChange={(e) => setTitle(e.target.value)}
             ></input>
 
             <label htmlFor="courseDescription">Course Description</label>
@@ -101,7 +86,7 @@ const CreateCourse = () => {
               id="courseDescription"
               name="courseDescription"
               value={description}
-              onChange={handleChange}
+              onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
           <div>
@@ -111,7 +96,7 @@ const CreateCourse = () => {
               name="estimatedTime"
               type="text"
               value={estimatedTime}
-              onChange={handleChange}
+              onChange={(e) => setEstimatedTime(e.target.value)}
             ></input>
 
             <label htmlFor="materialsNeeded">Materials Needed</label>
@@ -119,7 +104,7 @@ const CreateCourse = () => {
               id="materialsNeeded"
               name="materialsNeeded"
               value={materialsNeeded}
-              onChange={handleChange}
+              onChange={(e) => setMaterialsNeeded(e.target.value)}
             ></textarea>
           </div>
         </div>

@@ -73,8 +73,7 @@ const UpdateCourse = () => {
         console.log(err);
       });
   };
-  console.log("Error Messages: ", errorMessages);
-  console.log("Error Length: ", errorMessages.length);
+
   const navigate = useNavigate();
 
   return (

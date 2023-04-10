@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import CourseContext from "../context/CourseContext";
 import UserContext from "../context/UserContext";
@@ -14,9 +14,31 @@ const CourseDetail = () => {
   const { id } = useParams();
   const convertedId = parseInt(id);
 
+  const navigate = useNavigate();
+
   const courseBeingUpdated = courses
     .map((course) => course)
     .filter((course) => course.id === convertedId);
+
+  const deleteCourse = async () => {
+    await fetch(`http://localhost:5000/api/courses/${convertedId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization:
+          "Basic " +
+          btoa(
+            `${authenticatedUser.emailAddress}:${authenticatedUser.password}`
+          ),
+      },
+    }).then((res) => {
+      if (res.ok) {
+        console.log("Delete Successful");
+        navigate("/");
+      } else {
+        throw new Error();
+      }
+    });
+  };
 
   return (
     <div className="actions--bar">
@@ -27,9 +49,9 @@ const CourseDetail = () => {
             <Link to={`/courses/${convertedId}/update`} className="button">
               Update Course
             </Link>
-            <Link to={`/courses/${convertedId}/update`} className="button">
+            <button type="submit" onClick={deleteCourse} className="button">
               Delete Course
-            </Link>
+            </button>
           </>
         ) : null}
 
