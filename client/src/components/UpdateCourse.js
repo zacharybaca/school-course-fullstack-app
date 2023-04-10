@@ -26,7 +26,7 @@ const UpdateCourse = () => {
   let [materialsNeeded, setMaterialsNeeded] = useState(
     selectedCourse[0].materialsNeeded
   );
-  const [errors, setErrors] = useState([]);
+  const [errorMessages, setErrorMessages] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,7 +56,7 @@ const UpdateCourse = () => {
           return [];
         } else if (res.status === 400) {
           return res.json().then((data) => {
-            return data.errors;
+            return setErrorMessages(data);
           });
         } else if (res.status === 404) {
           throw new Error("404");
@@ -65,25 +65,26 @@ const UpdateCourse = () => {
         }
       })
       .then((errors) =>
-        errors.length ? setErrors(errors) : navigate(`/courses/${convertedId}`)
+        errors.length
+          ? setErrorMessages(errors)
+          : navigate(`/courses/${convertedId}`)
       )
       .catch((err) => {
         console.log(err);
       });
   };
-
+  console.log("Error Messages: ", errorMessages);
+  console.log("Error Length: ", errorMessages.length);
   const navigate = useNavigate();
 
   return (
     <div className="wrap">
       <h2>Update Course</h2>
-      {errors && errors.length > 0 ? (
+      {errorMessages.length !== 0 ? (
         <div className="validation--errors">
           <h3>Validation Errors</h3>
           <ul>
-            {errors.map((error, index) => (
-              <li key={index}>{error}</li>
-            ))}
+            <li>{errorMessages.message}</li>
           </ul>
         </div>
       ) : null}

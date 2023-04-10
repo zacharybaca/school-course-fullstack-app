@@ -8,19 +8,21 @@ import UserContext from "../context/UserContext";
 const CourseDetail = () => {
   const { courses } = useContext(CourseContext);
   const { authenticatedUser } = useContext(UserContext);
+  // Try to get Update and Delete buttons to only show if user is logged in and owns the course
 
   // Parameter to Get Single Course by ID
   const { id } = useParams();
   const convertedId = parseInt(id);
 
-  const userOwnedCourse = courses.filter(
-    (course) => course.userId === course.User.id
-  );
+  const courseBeingUpdated = courses
+    .map((course) => course)
+    .filter((course) => course.id === convertedId);
 
   return (
     <div className="actions--bar">
       <div className="wrap">
-        {authenticatedUser && userOwnedCourse ? (
+        {authenticatedUser &&
+        authenticatedUser.id === courseBeingUpdated[0].userId ? (
           <>
             <Link to={`/courses/${convertedId}/update`} className="button">
               Update Course

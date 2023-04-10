@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import UserContext from "../context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 
+//Create New User Since DB is formatted and try to create new course after model change in API
 const CreateCourse = () => {
   const { authenticatedUser } = useContext(UserContext);
   // Set up State for Course
@@ -51,27 +52,33 @@ const CreateCourse = () => {
           ),
       },
     })
-      .then((errors) => {
-        if (errors.length) {
-          setErrors(errors);
+      .then((res) => {
+        if (res.status === 204) {
+          return [];
+        } else if (res.status === 400) {
+          return res.json().then((data) => {
+            return setErrors(data);
+          });
+        } else if (res.status === 404) {
+          throw new Error("404");
         } else {
-          navigate("/");
+          throw new Error("505");
         }
       })
-      .catch((error) => {
-        console.error(error);
-        navigate("/");
+      .then((errors) => (errors.length ? setErrors(errors) : navigate("/")))
+      .catch((err) => {
+        console.log(err);
       });
   };
-
+  console.log("Errors: ", errors);
   return (
     <div className="wrap">
       <h2>Create Course</h2>
-      {errors && errors.length ? (
+      {errors && errors.length !== 0 ? (
         <div className="validation--errors">
           <h3>Validation Errors</h3>
           <ul>
-            {errors.map((error, index) => (
+            {errors.errors.map((error, index) => (
               <li key={index}>{error}</li>
             ))}
           </ul>

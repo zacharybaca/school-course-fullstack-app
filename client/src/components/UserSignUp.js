@@ -3,39 +3,35 @@ import { useState, useContext } from "react";
 import UserContext from "../context/UserContext";
 
 const UserSignUp = () => {
+  let [firstName, setFirstName] = useState("");
+  let [lastName, setLastName] = useState("");
+  let [emailAddress, setEmailAddress] = useState("");
+  let [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
   const { actions } = useContext(UserContext);
 
-  const [userSignUp, setUserSignUp] = useState({
-    firstName: "",
-    lastName: "",
-    emailAddress: "",
-    password: "",
-  });
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    setUserSignUp((userSignUp) => ({
-      ...userSignUp,
-      [name]: value,
-    }));
+    submit();
   };
 
   const submit = async () => {
     await fetch("http://localhost:5000/api/users", {
       method: "POST",
-      body: JSON.stringify(userSignUp),
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        emailAddress: emailAddress,
+        password: password,
+      }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
       .then((res) => {
         if (res.status === 201) {
-          actions.userSignIn(userSignUp.emailAddress, userSignUp.password);
+          actions.signIn(emailAddress, password);
           return [];
         } else if (res.status === 400) {
           return res.json().then((data) => {
@@ -47,7 +43,7 @@ const UserSignUp = () => {
           );
         }
       })
-      .then((errors) => (errors ? setErrors(errors) : console.log("")))
+      .then((errors) => (errors.length ? setErrors(errors) : console.log("")))
       .catch((err) => {
         console.log("Error signing up", err);
       });
@@ -66,14 +62,14 @@ const UserSignUp = () => {
           </ul>
         </div>
       ) : null}
-      <form onSubmit={submit}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name</label>
         <input
           id="firstName"
           name="firstName"
           type="text"
-          value={userSignUp.firstName}
-          onChange={handleChange}
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
         ></input>
 
         <label htmlFor="lastName">Last Name</label>
@@ -81,8 +77,8 @@ const UserSignUp = () => {
           id="lastName"
           name="lastName"
           type="text"
-          value={userSignUp.lastName}
-          onChange={handleChange}
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
         ></input>
 
         <label htmlFor="emailAddress">Email Address</label>
@@ -90,8 +86,8 @@ const UserSignUp = () => {
           id="emailAddress"
           name="emailAddress"
           type="email"
-          value={userSignUp.emailAddress}
-          onChange={handleChange}
+          value={emailAddress}
+          onChange={(e) => setEmailAddress(e.target.value)}
         ></input>
 
         <label htmlFor="password">Password</label>
@@ -99,8 +95,8 @@ const UserSignUp = () => {
           id="password"
           name="password"
           type="password"
-          value={userSignUp.password}
-          onChange={handleChange}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         ></input>
 
         <button className="button" type="submit">
