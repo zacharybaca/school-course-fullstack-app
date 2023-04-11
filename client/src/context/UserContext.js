@@ -10,6 +10,7 @@ export const UserProvider = (props) => {
     cookie ? JSON.parse(cookie) : null
   );
 
+  /* Sets a cookie called authenticatedUser to persist user login */
   Cookies.set("authenticatedUser", JSON.stringify(authenticatedUser), {
     expires: 1,
   });
@@ -46,6 +47,7 @@ export const UserProvider = (props) => {
       });
   };
 
+  /* Clears authenticatedUser state and removes stored cookie */
   const signOutUser = () => {
     setAuthenticatedUser(null);
     Cookies.remove("authenticatedUser");

@@ -4,11 +4,13 @@ import CourseContext from "../context/CourseContext";
 import UserContext from "../context/UserContext";
 
 const UpdateCourse = () => {
+  /* Gets courses and authenticatedUser from each context */
   const { courses } = useContext(CourseContext);
   const { authenticatedUser } = useContext(UserContext);
 
   // Parameter to Get Single Course by ID
   const { id } = useParams();
+  // Converts Params to a Number
   const convertedId = parseInt(id);
 
   const selectedCourse = courses
@@ -17,7 +19,8 @@ const UpdateCourse = () => {
       return newCourse;
     });
 
-  //Set State for Each Input Field
+  // Set State for Each Input Field
+  // Each input field is pre-populated with the data that was saved for that record in the database
   let [title, setTitle] = useState(selectedCourse[0].title);
   let [description, setDescription] = useState(selectedCourse[0].description);
   let [estimatedTime, setEstimatedTime] = useState(
@@ -54,6 +57,10 @@ const UpdateCourse = () => {
       .then((res) => {
         if (res.status === 204) {
           return [];
+          // eslint-disable-next-line no-lone-blocks, no-unreachable
+          {
+            /* Adds Error message to errors state array if a bad request occurs to show Validation Errors */
+          }
         } else if (res.status === 400) {
           return res.json().then((data) => {
             return setErrorMessages(data);
@@ -79,6 +86,7 @@ const UpdateCourse = () => {
   return (
     <div className="wrap">
       <h2>Update Course</h2>
+      {/* If the errorMessages array contains at least one validation error, show the validation error div */}
       {errorMessages.length !== 0 ? (
         <div className="validation--errors">
           <h3>Validation Errors</h3>

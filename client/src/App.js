@@ -9,6 +9,7 @@ import Courses from "./components/Courses";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
 
+/* Routes that are wrapped in PrivateRoute needs a current user logged in before rendering */
 function App() {
   return (
     <div className="App">

@@ -5,6 +5,7 @@ const CourseContext = createContext(null);
 export const CourseProvider = (props) => {
   const [courses, setCourses] = useState([]);
 
+  /* Fetches list of courses from API and adds them to courses array */
   useEffect(() => {
     fetch("http://localhost:5000/api/courses")
       .then((response) => response.json())

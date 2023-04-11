@@ -3,6 +3,7 @@ import { useContext } from "react";
 import UserContext from "../context/UserContext";
 
 const Header = () => {
+  /* Gets authenticatedUser from UserContext */
   const { authenticatedUser } = useContext(UserContext);
 
   return (
@@ -13,6 +14,7 @@ const Header = () => {
             <Link to="/">Courses</Link>
           </h1>
           <nav>
+            {/* If authenticatedUser isn't null and the array has a property that contains emailAddress, the Welcome message appears */}
             {authenticatedUser !== null &&
             authenticatedUser.hasOwnProperty("emailAddress") ? (
               <>

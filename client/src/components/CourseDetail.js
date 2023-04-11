@@ -4,11 +4,10 @@ import ReactMarkdown from "react-markdown";
 import CourseContext from "../context/CourseContext";
 import UserContext from "../context/UserContext";
 
-// Start on Task 9 on Instructions List of Project
 const CourseDetail = () => {
+  // Get List of Courses from API and current logged in User
   const { courses } = useContext(CourseContext);
   const { authenticatedUser } = useContext(UserContext);
-  // Try to get Update and Delete buttons to only show if user is logged in and owns the course
 
   // Parameter to Get Single Course by ID
   const { id } = useParams();
@@ -16,6 +15,7 @@ const CourseDetail = () => {
 
   const navigate = useNavigate();
 
+  // Gets the course that is being updated using the URL params
   const courseBeingUpdated = courses
     .map((course) => course)
     .filter((course) => course.id === convertedId);
@@ -43,6 +43,7 @@ const CourseDetail = () => {
   return (
     <div className="actions--bar">
       <div className="wrap">
+        {/* Checks if authenticatedUser ID matches the Course's UserId */}
         {authenticatedUser &&
         authenticatedUser.id === courseBeingUpdated[0].userId ? (
           <>
@@ -64,6 +65,7 @@ const CourseDetail = () => {
         <h2>Course Detail</h2>
         <form>
           <div className="main--flex">
+            {/* Filters the course being updated by URL params */}
             {courses
               .filter((course) => course.id === convertedId)
               .map((course) => (

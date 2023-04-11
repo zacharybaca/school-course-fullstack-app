@@ -3,9 +3,11 @@ import CourseContext from "../context/CourseContext";
 import { Link } from "react-router-dom";
 
 const Courses = () => {
+  /* Gets list of Courses from API */
   const { courses } = useContext(CourseContext);
   return (
     <div className="wrap main--grid">
+      {/* Maps over each course in the Database */}
       {courses.map((course) => {
         return (
           <Link

@@ -3,6 +3,7 @@ import UserContext from "../context/UserContext";
 import { Link } from "react-router-dom";
 
 const UserSignIn = () => {
+  /* Gets the action functions from the UserContext to be used for signin/signout functionality */
   const { actions } = useContext(UserContext);
 
   // State

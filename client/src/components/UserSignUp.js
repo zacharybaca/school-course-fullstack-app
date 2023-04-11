@@ -9,6 +9,7 @@ const UserSignUp = () => {
   let [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  /* Get actions from UserContext for signin/signout/signup functionality */
   const { actions } = useContext(UserContext);
 
   const handleSubmit = (event) => {
