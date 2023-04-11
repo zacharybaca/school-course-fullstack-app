@@ -13,6 +13,9 @@ const CourseDetail = () => {
   const { id } = useParams();
   const convertedId = parseInt(id);
 
+  const localDev = `http://localhost:5000/api/courses/${convertedId}`;
+  //const liveDev = `school-course-fullstack-app-production.up.railway.app/api/courses/${convertedId}`;
+
   const navigate = useNavigate();
 
   // Gets the course that is being updated using the URL params
@@ -21,7 +24,7 @@ const CourseDetail = () => {
     .filter((course) => course.id === convertedId);
 
   const deleteCourse = async () => {
-    await fetch(`http://localhost:5000/api/courses/${convertedId}`, {
+    await fetch(localDev, {
       method: "DELETE",
       headers: {
         Authorization:

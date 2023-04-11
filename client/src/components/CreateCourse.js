@@ -14,13 +14,16 @@ const CreateCourse = () => {
 
   const navigate = useNavigate();
 
+  const localDev = `http://localhost:5000/api/courses`;
+  //const liveDev = `school-course-fullstack-app-production.up.railway.app/api/courses`;
+
   const handleSubmit = (event) => {
     event.preventDefault();
     submit();
   };
 
   const submit = async () => {
-    await fetch("http://localhost:5000/api/courses", {
+    await fetch(localDev, {
       method: "POST",
       body: JSON.stringify({
         title: title,

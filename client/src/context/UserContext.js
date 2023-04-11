@@ -15,9 +15,12 @@ export const UserProvider = (props) => {
     expires: 1,
   });
 
+  const localDev = `http://localhost:5000/api/users`;
+  //const liveDev = `school-course-fullstack-app-production.up.railway.app/api/courses`;
+
   const navigate = useNavigate();
   const signInUser = async (emailAddress, password) => {
-    await fetch("http://localhost:5000/api/users", {
+    await fetch(localDev, {
       method: "GET",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
