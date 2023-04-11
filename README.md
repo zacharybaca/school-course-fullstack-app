@@ -4,7 +4,7 @@
 ## Description
 ## Fullstack Web Application
 
-**Project Title:** Full Stack App with React and a REST API.
+**Project Title:** Full Stack Web application using React and a RESTful API developed with ExpressJS and Sequelize for Database funcionality.
 
 **Author:** Zachary Baca
 
