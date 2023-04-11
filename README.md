@@ -1,6 +1,8 @@
-# TechDegree-FSJS-Project-10
+# School Course Catelog Web Application
+
 
 ## Description
+## Fullstack Web Application
 
 **Project Title:** Full Stack App with React and a REST API.
 
