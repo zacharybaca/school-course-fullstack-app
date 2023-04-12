@@ -18,7 +18,13 @@ const app = express();
 app.use(express.json());
 
 // Cors Middleware
-app.use(cors({ credentials: true }));
+app.use(
+  cors({
+    AccessControlAllowOrigin: "*",
+    origin: "https://school-course-fullstack-app-production.up.railway.app",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  })
+);
 
 // Add routes
 app.use("/api", routes);
