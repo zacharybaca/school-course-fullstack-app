@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 
 // Cors Middleware
-app.use(cors());
+app.use(cors({ credentials: true }));
 
 // Add routes
 app.use("/api", routes);
