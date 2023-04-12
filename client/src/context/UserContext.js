@@ -26,7 +26,7 @@ export const UserProvider = (props) => {
         "Content-Type": "application/json; charset=utf-8",
         Authorization: "Basic " + btoa(`${emailAddress}:${password}`),
       },
-      //credentials: "include",
+      credentials: "include",
     })
       .then((res) => {
         if (res.status === 401) {
