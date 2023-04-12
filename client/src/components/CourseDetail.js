@@ -14,7 +14,7 @@ const CourseDetail = () => {
   const convertedId = parseInt(id);
 
   //const localDev = `http://localhost:5000/api/courses/${convertedId}`;
-  const liveDev = `school-course-fullstack-app-production.up.railway.app/api/courses/${convertedId}`;
+  const liveDev = `https://school-course-fullstack-app-production.up.railway.app/api/courses/${convertedId}`;
 
   const navigate = useNavigate();
 

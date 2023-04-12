@@ -16,7 +16,7 @@ export const UserProvider = (props) => {
   });
 
   //const localDev = `http://localhost:5000/api/users`;
-  const liveDev = `school-course-fullstack-app-production.up.railway.app/api/courses`;
+  const liveDev = `https://school-course-fullstack-app-production.up.railway.app/api/users`;
 
   const navigate = useNavigate();
   const signInUser = async (emailAddress, password) => {

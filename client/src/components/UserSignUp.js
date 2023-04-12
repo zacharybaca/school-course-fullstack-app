@@ -13,7 +13,7 @@ const UserSignUp = () => {
   const { actions } = useContext(UserContext);
 
   //const localDev = `http://localhost:5000/api/users`;
-  const liveDev = `school-course-fullstack-app-production.up.railway.app/api/users`;
+  const liveDev = `https://school-course-fullstack-app-production.up.railway.app/api/users`;
 
   const handleSubmit = (event) => {
     event.preventDefault();
