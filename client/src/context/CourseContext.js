@@ -10,7 +10,7 @@ export const CourseProvider = (props) => {
 
   /* Fetches list of courses from API and adds them to courses array */
   useEffect(() => {
-    fetch(`http://localhost:5000/api/courses`)
+    fetch(`school-course-fullstack-app-production.up.railway.app/api/courses`)
       .then((response) => response.json())
       .then((data) => setCourses(data));
   }, [courses]);
