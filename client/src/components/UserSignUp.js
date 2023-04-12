@@ -12,8 +12,8 @@ const UserSignUp = () => {
   /* Get actions from UserContext for signin/signout/signup functionality */
   const { actions } = useContext(UserContext);
 
-  const localDev = `http://localhost:5000/api/users`;
-  //const liveDev = `school-course-fullstack-app-production.up.railway.app/api/users`;
+  //const localDev = `http://localhost:5000/api/users`;
+  const liveDev = `school-course-fullstack-app-production.up.railway.app/api/users`;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,7 +21,7 @@ const UserSignUp = () => {
   };
 
   const submit = async () => {
-    await fetch(localDev, {
+    await fetch(liveDev, {
       method: "POST",
       body: JSON.stringify({
         firstName: firstName,

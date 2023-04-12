@@ -13,8 +13,8 @@ const UpdateCourse = () => {
   // Converts Params to a Number
   const convertedId = parseInt(id);
 
-  const localDev = `http://localhost:5000/api/courses/${convertedId}`;
-  //const liveDev = `school-course-fullstack-app-production.up.railway.app/api/courses/${convertedId}`;
+  //const localDev = `http://localhost:5000/api/courses/${convertedId}`;
+  const liveDev = `school-course-fullstack-app-production.up.railway.app/api/courses/${convertedId}`;
 
   const selectedCourse = courses
     .filter((course) => course.id === convertedId)
@@ -40,7 +40,7 @@ const UpdateCourse = () => {
   };
 
   const submit = async () => {
-    await fetch(localDev, {
+    await fetch(liveDev, {
       method: "PUT",
       body: JSON.stringify({
         title: title,
