@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "https://school-course-fullstack-app-production.up.railway.app",
+    origin: "https://school-course-fullstack-app-production.up.railway.app/api",
   })
 );
 
