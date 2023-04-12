@@ -20,7 +20,7 @@ app.use(express.json());
 // Cors Middleware
 app.use(
   cors({
-    origin: "https://school-course-fullstack-app-production.up.railway.app",
+    origin: "https://school-course-catalog-front-end-production.up.railway.app",
     preflightContinue: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
