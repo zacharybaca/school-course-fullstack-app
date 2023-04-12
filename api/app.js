@@ -20,9 +20,7 @@ app.use(express.json());
 // Cors Middleware
 app.use(
   cors({
-    AccessControlAllowOrigin: "*",
-    origin: "https://school-course-fullstack-app-production.up.railway.app",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
   })
 );
 
