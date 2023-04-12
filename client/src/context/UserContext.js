@@ -25,9 +25,6 @@ export const UserProvider = (props) => {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         Authorization: "Basic " + btoa(`${emailAddress}:${password}`),
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin":
-          "https://school-course-fullstack-app-production.up.railway.app",
       },
       credentials: "include",
     })
